@@ -33,8 +33,29 @@ function getUserIdByCode(code) {
   });
 }
 
+function getExpenseItems() {
+  return new Promise((resolve, reject) => {
+    dbIsAlive().then((state) => {
+      if (state.dbIsAlive) {
+        dbPool
+          .query(
+            `
+            select id, name
+            from expenseItems`
+          )
+          .then(([row]) => {
+            resolve(row);
+          });
+      }
+    });
+  });
+}
+
 module.exports = {
   users: {
     getUserIdByCode,
   },
+  references: {
+    getExpenseItems,
+  }
 };

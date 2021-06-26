@@ -25,4 +25,11 @@ router.post('/user/check', (req, res) => {
   }
 });
 
+router.post('/references/expenseItems', (req, res) => {
+  service.references.getExpenseItems().then((data) => {
+    const d = JSON.stringify(data);
+    res.json(d);
+  });
+});
+
 module.exports = router;
