@@ -40,7 +40,7 @@ function getExpenseItems() {
         dbPool
           .query(
             `
-            select id, name
+            select id, name, oftenUsed
             from expenseItems`
           )
           .then(([row]) => {

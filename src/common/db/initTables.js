@@ -29,7 +29,8 @@ function createTables() {
   )`;
   const createExpenseItems = `create table if not exists expenseItems(
     id int primary key auto_increment,
-    name varchar(255) not null
+    name varchar(255) not null,
+    oftenUsed BOOLEAN NOT NULL DEFAULT FALSE
   )`;
   const createExpenseRecords = `create table if not exists expenseRecords(
     id int primary key auto_increment,
