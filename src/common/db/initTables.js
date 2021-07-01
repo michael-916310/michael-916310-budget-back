@@ -25,12 +25,15 @@ async function loadOneColumnRefData(data, tableRows, tableName) {
 function createTables() {
   const createExpenseGroup = `create table if not exists expenseGroups(
     id int primary key auto_increment,
-    name varchar(255) not null
+    name varchar(255) not null,
+    defaultSelection BOOLEAN NOT NULL DEFAULT FALSE,
+    obsolete BOOLEAN NOT NULL DEFAULT FALSE
   )`;
   const createExpenseItems = `create table if not exists expenseItems(
     id int primary key auto_increment,
     name varchar(255) not null,
-    oftenUsed BOOLEAN NOT NULL DEFAULT FALSE
+    oftenUsed BOOLEAN NOT NULL DEFAULT FALSE,
+    obsolete BOOLEAN NOT NULL DEFAULT FALSE
   )`;
   const createExpenseRecords = `create table if not exists expenseRecords(
     id int primary key auto_increment,

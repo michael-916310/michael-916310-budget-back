@@ -2,6 +2,7 @@ const expenseGroupData = [
   'Отпуск Калининград',
   'Текущий бюджет',
   'Покраска машины',
+  'Лицо',
 ];
 
 const expenseItemsData = [
@@ -25,10 +26,9 @@ const expenseItemsData = [
   'Алкоголь',
   'Танцы',
   'Проезд',
-  'Проезд Эль',
+  'Эльзе',
   'Сотовый',
-  'Очки',
-  'Тов для дома',
+  'Очки'
 ];
 
 const userData = ['michael', 'tatiana'];
