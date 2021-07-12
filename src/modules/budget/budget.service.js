@@ -107,6 +107,50 @@ function addExpense(
   });
 }
 
+function getExpenseList(){
+  return new Promise((resolve, reject) => {
+    dbIsAlive().then((state) => {
+      if (state.dbIsAlive) {
+        dbPool
+          .query(
+            `
+          select
+            r.id, r.period, r.day, i.name as expenseName, g.name as groupName,
+            description, amount
+          from expenseRecords r
+            inner join expenseItems i on r.expenseItemId = i.id
+            inner join expenseGroups g on r.expenseGroupId = g.id
+          order by r.date desc, r.id desc
+          limit 10
+        `
+          )
+          .then(([row]) => {
+            resolve(row);
+          });
+      }
+    })
+  })
+}
+
+function deleteExpense(id){
+  return new Promise((resolve, reject) => {
+    dbIsAlive().then((state) => {
+      if (state.dbIsAlive) {
+        dbPool
+          .query(
+            `
+          delete from expenseRecords where id = ${id}
+          `
+          )
+          .then(([ResultSetHeader]) => {
+            console.log(ResultSetHeader);
+            resolve(ResultSetHeader.affectedRows);
+          });
+      }
+    })
+  })
+}
+
 module.exports = {
   users: {
     getUserIdByCode,
@@ -117,5 +161,7 @@ module.exports = {
   },
   expenses: {
     addExpense,
+    getExpenseList,
+    deleteExpense
   }
 };

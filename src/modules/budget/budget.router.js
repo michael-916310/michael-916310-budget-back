@@ -96,4 +96,42 @@ router.post('/expense/add', (req, res) => {
   //console.log(expenseId, expenseGroupId, expenseSum, expenseDate, expenseComment);
 });
 
+router.post('/expense/getList', (req, res) => {
+  (async function () {
+    const list = await service.expenses.getExpenseList();
+    res.json(JSON.stringify(list));
+  })();
+});
+
+router.delete('/expense/delete', (req, res) => {
+  const recordId = +req.body.recordId;
+
+  if (!(recordId > 0)) {
+    res.json(
+      JSON.stringify({
+        status: -1,
+        message: 'Не указана запись',
+      })
+    );
+  } else {
+    service.expenses.deleteExpense(recordId).then((colRows) => {
+      if (colRows === 1) {
+        res.json(
+          JSON.stringify({
+            status: 1,
+            message: 'OK',
+          })
+        );
+      } else if (colRows === 0) {
+        res.json(
+          JSON.stringify({
+            status: -1,
+            message: `Запись с id:${recordId} не удалена`,
+          })
+        );
+      }
+    });
+  }
+});
+
 module.exports = router;
